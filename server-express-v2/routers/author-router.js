@@ -83,7 +83,6 @@ router.put('/:au_id', function (req, res) {
 router.delete('/:id', function (req, res) {
     const authorId = req.params.id;
     const query = `DELETE FROM authors WHERE au_id = ?`;
-
     executeQuery(query, [authorId], res)
 });
 
