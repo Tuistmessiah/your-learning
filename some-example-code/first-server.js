@@ -1,3 +1,8 @@
+/**
+ * Simplest express server example
+ *  - Make sure you have a MySQL db setup.
+ */
+
 import express from 'express'
 import mysql from  'mysql'
 
@@ -6,7 +11,7 @@ const app = express();
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'c0nygre',
+    password: 'YOUR_PASSWORD',
     database: 'pubs'
 });
 

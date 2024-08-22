@@ -45,12 +45,19 @@ router.get('/:id', function (req, res) {
  * 
  */
 router.post('/', function (req, res) {
-    const {au_id, au_lname, au_fname, phone, address, city, state, zip, contract} = req.body;
+    const { au_id, au_lname, au_fname, phone, address, city, state, zip, contract } = req.body;
     const query = `INSERT INTO authors (au_id, au_lname, au_fname, phone, address, city, state, zip, contract) 
                    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    executeQuery(query,  [au_id, au_lname, au_fname, phone, address, city, state, zip, contract], res);
-
+    
+    executeQuery(query, [au_id, au_lname, au_fname, phone, address, city, state, zip, contract])
+        .then(() => {
+            res.status(200).json({ message: 'Author added successfully' });
+        })
+        .catch(error => {
+            res.status(500).json({ error: 'Failed to add author' });
+        });
 });
+
 
 /**
  * 
