@@ -11,8 +11,12 @@ const app = express();
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'YOUR_PASSWORD',
+    password: 'spyro123',
     database: 'pubs'
+});
+
+app.get('/', (req, res) => {
+    res.json('Hello World');
 });
 
 app.get('/authors', (req, res) => {

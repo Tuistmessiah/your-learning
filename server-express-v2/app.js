@@ -44,25 +44,25 @@ app.get('/', function (req, res) {
   res.send('This API is live!')
 })
 
-app.get('/greet', (req, res) => {
-    res.status(200).json({ message: 'Greetings, traveler!' });
-});
+// app.get('/greet', (req, res) => {
+//     res.status(200).json({ message: 'Greetings, traveler!' });
+// });
 
 // Example of Try/Catch
-app.get('/data', (req, res) => {
+app.get('/greet', (req, res) => {
     try {
         // Assume we're expecting a query parameter 'id'
-        const { id } = req.query;
+        const { name } = req.query;
 
-        if (!id) {
-            throw new Error('Missing "id" query parameter');
+        if (!name) {
+            throw new Error('Missing "name" query parameter');
         }
 
         // Simulate fetching data (this could be from a database or another source)
         const data = {
             id,
             name: 'Sample Data',
-            description: 'This is just a sample response.'
+            description: 'Hello ' + name
         };
 
         res.status(200).json(data);

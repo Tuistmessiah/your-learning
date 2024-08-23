@@ -38,7 +38,10 @@ router.get('/', function (req, res) {
 router.get('/:id', function (req, res) {
     const authorId = req.params.id;
     const query = 'SELECT * FROM authors WHERE au_id = ?';
-    executeQuery(query, [authorId], res);
+    executeQuery(query, [authorId], res)
+        .then(() => {
+            res.status(200).json({ message: 'Author found successfully' });
+        })
 });
 
 /**
@@ -51,7 +54,7 @@ router.post('/', function (req, res) {
     
     executeQuery(query, [au_id, au_lname, au_fname, phone, address, city, state, zip, contract])
         .then(() => {
-            res.status(200).json({ message: 'Author added successfully' });
+            res.status(201).json({ message: 'Author added successfully' });
         })
         .catch(error => {
             res.status(500).json({ error: 'Failed to add author' });
