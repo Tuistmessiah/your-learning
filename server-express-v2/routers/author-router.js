@@ -1,5 +1,5 @@
-import express from 'express'
-import { executeQuery } from '../database-setup.js'
+import express from 'express';
+import AuthorsController from '../controllers/authors-controller.js';
 
 const router = express.Router();
 
@@ -16,8 +16,8 @@ const router = express.Router();
  *         descriptions: Error response
  */
 router.get('/', function (req, res) {
-    executeQuery('SELECT * FROM authors', [], res);
-  })
+    AuthorsController.getAllAuthors(res);
+});
 
 /**
  * @swagger
@@ -37,42 +37,61 @@ router.get('/', function (req, res) {
  */
 router.get('/:id', function (req, res) {
     const authorId = req.params.id;
-    const query = 'SELECT * FROM authors WHERE au_id = ?';
-    executeQuery(query, [authorId], res)
-        .then(() => {
-            res.status(200).json({ message: 'Author found successfully' });
-        })
+    AuthorsController.getAuthorById(authorId, res);
 });
 
 /**
- * 
+ * @swagger
+ * /authors:
+ *   post:
+ *     summary: Add a new author
+ *     tags: [Authors]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Author added successfully
+ *       500:
+ *         description: Failed to add author
  */
 router.post('/', function (req, res) {
-    const { au_id, au_lname, au_fname, phone, address, city, state, zip, contract } = req.body;
-    const query = `INSERT INTO authors (au_id, au_lname, au_fname, phone, address, city, state, zip, contract) 
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-    
-    executeQuery(query, [au_id, au_lname, au_fname, phone, address, city, state, zip, contract])
-        .then(() => {
-            res.status(201).json({ message: 'Author added successfully' });
-        })
-        .catch(error => {
-            res.status(500).json({ error: 'Failed to add author' });
-        });
+    const authorData = req.body;
+    AuthorsController.addAuthor(authorData, res);
 });
-
 
 /**
- * 
+ * @swagger
+ * /authors/{au_id}:
+ *   put:
+ *     summary: Update an author by ID
+ *     tags: [Authors]
+ *     parameters:
+ *       - name: au_id
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type: string
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *     responses:
+ *       200:
+ *         description: Author updated successfully
+ *       500:
+ *         description: Failed to update author
  */
 router.put('/:au_id', function (req, res) {
-    const au_id = req.params.au_id;
-    const { au_lname, au_fname, phone, address, city, state, zip, contract } = req.body;
-    const query = `UPDATE authors SET au_lname = ?, au_fname = ?, phone = ?, address = ?, city = ?, 
-                   state = ?, zip = ?, contract = ? WHERE au_id = ?`;
-    executeQuery(query, [au_lname, au_fname, phone, address, city, state, zip, contract, au_id], res);
+    const authorId = req.params.au_id;
+    const authorData = req.body;
+    AuthorsController.updateAuthor(authorId, authorData, res);
 });
-
 
 /**
  * @swagger
@@ -88,15 +107,13 @@ router.put('/:au_id', function (req, res) {
  *           type: string
  *     responses:
  *       200:
- *         description: Author deleted
+ *         description: Author deleted successfully
+ *       500:
+ *         description: Failed to delete author
  */
 router.delete('/:id', function (req, res) {
     const authorId = req.params.id;
-    const query = `DELETE FROM authors WHERE au_id = ?`;
-    executeQuery(query, [authorId], res)
+    AuthorsController.deleteAuthor(authorId, res);
 });
-
-
-
 
 export default router;
