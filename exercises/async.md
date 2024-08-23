@@ -1,3 +1,5 @@
+# Exercises around endpoints with try/catch
+
 ### Exercise 1: Basic Error Handling with Missing Query Parameter
 
 **Level: Easy**
@@ -12,11 +14,7 @@
 4. Catch the error and return a 400 status with an appropriate error message.
 5. If the `name` is provided, return a greeting message like "Hello, [name]!".
 
-**Solution:**
-
-```javascript
-...
-```
+---
 
 ### Exercise 2: Parsing JSON Input with Error Handling
 
@@ -31,12 +29,7 @@
 3. If the JSON is invalid, catch the error and return a 400 status with an appropriate error message.
 4. If the JSON is valid, return a success message with the received `data`.
 
-**Solution:**
-
-```javascript
-...
-
-```
+---
 
 ### Exercise 3: Simulated Database Error Handling
 
@@ -51,9 +44,4 @@
 3. Catch the error and return a 500 status with a "Database error" message.
 4. If the "database" succeeds, return some mock data.
 
-**Solution:**
-
-```javascript
-...
-
-```
+---
