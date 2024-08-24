@@ -1,0 +1,39 @@
+/* h1 {
+    color: blue;
+    font-size: 50px;
+}
+
+#orange {
+    color: orange;
+}
+
+.brown {
+    color: brown;
+}
+
+div {
+    color: blue;
+}
+
+span {
+    display: block;
+    border: 10px solid black;
+    padding: 5px;
+    margin: 20px;
+}
+
+.whateverIhave > .myClass {
+    background-color: red;
+}
+
+span:last-child {
+    background-color: green;
+}
+
+#myP {
+    background-color: lightgreen;
+} */
+
+#my-blue-change{
+    background-color: blue;
+}
